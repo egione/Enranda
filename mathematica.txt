@@ -1,0 +1,24 @@
+(*
+Complies with:
+
+http://cognomicon.blogspot.com/2015/05/mathematica-coding-standards.html
+
+BimobiusListGet
+
+Return bits in the bimobius (binary Mobius) function. The bimobius function is defined for all positive integers N as follows:
+
+  Null if (Mobius[N]==0).
+  0 if (Mobius[N]==1).
+  1 if (Mobius[N]==(-1)).
+
+Thus bimobius is statistically equivalent to Mobius without the zeroes.
+
+In
+
+  listsize is the desired list size, starting with (n==1) which produces zero.
+
+Out
+
+  Returns a list of listsize items, each of which a bit in the bimobius function: {0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1...}.
+*)
+BimobiusListGet[listsize_]:=(bimobiuslist0=Array[0&, listsize]; bimobiuslist0[[1]]=0; idx0=2; n0=2; While[idx0<=listsize, factorlist0=FactorInteger[n0]; If[Max[factorlist0.{0, 1}]==1, bimobiuslist0[[idx0]]=BitAnd[Length[factorlist0], 1]; idx0++]; n0++]; Return[bimobiuslist0])
